@@ -10,7 +10,9 @@ import hd.sphinx.sync.mysql.MySQL;
 import hd.sphinx.sync.util.ConfigManager;
 import hd.sphinx.sync.util.InventoryManager;
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -132,10 +134,13 @@ public class MainManageData {
 
     public static void savePlayer(Player player) {
         if (DeathListener.deadPlayers.contains(player)) {
-            player.getInventory().clear();
+            Boolean keepInventory = player.getWorld().getGameRuleValue(GameRule.KEEP_INVENTORY);
+            if(Boolean.FALSE.equals(keepInventory)){
+                player.getInventory().clear();
+                player.setLevel(0);
+            }
             player.setHealth(20);
             player.setFoodLevel(20);
-            player.setLevel(0);
         }
         try {
             player.getInventory().addItem(player.getItemOnCursor());
