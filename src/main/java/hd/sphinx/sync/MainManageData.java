@@ -139,8 +139,6 @@ public class MainManageData {
                 player.getInventory().clear();
                 player.setLevel(0);
             }
-            player.setHealth(20);
-            player.setFoodLevel(20);
         }
         try {
             player.getInventory().addItem(player.getItemOnCursor());
