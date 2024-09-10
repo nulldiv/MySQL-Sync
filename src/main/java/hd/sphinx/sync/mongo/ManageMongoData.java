@@ -82,8 +82,10 @@ public class ManageMongoData {
             result = String.valueOf(document.getDouble("health"));
             try {
                 if (result != null && ConfigManager.getBoolean("settings.syncing.health")) {
-                    player.setHealth(Double.parseDouble(result));
-                    syncProfile.setHealth(Double.parseDouble(result));
+                    if(!(Double.parseDouble(result) == 0)) {
+                        player.setHealth(Double.parseDouble(result));
+                        syncProfile.setHealth(Double.parseDouble(result));
+                    }
                     result = null;
                 }
             } catch (Exception ignored) { }
