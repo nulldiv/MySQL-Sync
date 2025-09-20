@@ -5,7 +5,6 @@ import hd.sphinx.sync.MainManageData;
 import hd.sphinx.sync.api.SyncProfile;
 import hd.sphinx.sync.backup.CustomSyncSettings;
 import hd.sphinx.sync.util.*;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;

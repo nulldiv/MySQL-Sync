@@ -6,7 +6,7 @@
 
     <groupId>hd.sphinx</groupId>
     <artifactId>MySQL-Sync</artifactId>
-    <version>1.4.15-ruawing</version>
+    <version>1.4.15-sshmod1</version>
     <packaging>jar</packaging>
 
     <name>MySQL-Sync</name>
@@ -119,6 +119,13 @@
             <artifactId>spigot-api</artifactId>
             <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--jsch - Java implementation of SSH2-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
         </dependency>
     </dependencies>
 </project>

@@ -74,6 +74,25 @@ mongodb:
 
 
 #
+# SSH Port-Forwarding feature
+# - query will be forwarded to ssh.host:ssh.remoteport on remote server,
+# - and listened on mysql.host(localhost):mysql.port.
+# - currently, only Local port forwarding is supported.
+#
+
+ssh:
+  use: false # set true to use port forwarding
+  dbhost: "dbhost" # db host on remote
+  dbport: "13306" # db port on remote
+  sshhost: "sshhost" # ssh host
+  sshport: "22" # ssh port (default: "22")
+  auth: "password" # "password" or "publickey" can be used
+  username: "username" # always required
+  password: "password" # always required (if identity password is blank, please set this to "")
+  identity: "/home/user/.ssh/id_rsa" # required if auth is "publickey"
+
+
+#
 # Version
 # - This is needed for Updating the Plugin right, so don't remove or edit it!
 #

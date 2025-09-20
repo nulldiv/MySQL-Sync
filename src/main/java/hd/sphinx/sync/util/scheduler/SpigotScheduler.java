@@ -29,7 +29,7 @@ public class SpigotScheduler implements Scheduler {
 
     @Override
     public void cancelBackupTask() {
-        Bukkit.getScheduler().cancelTask(backupTaskID);
+        if(backupTaskID!=null) Bukkit.getScheduler().cancelTask(backupTaskID);
     }
 
     @Override
