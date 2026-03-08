@@ -97,11 +97,19 @@ public class ManageMongoData {
                     result = null;
                 }
             } catch (Exception ignored) { }
-            result = String.valueOf(document.getInteger("exp"));
+            result = String.valueOf(document.getDouble("exp"));
             try {
                 if (result != null && ConfigManager.getBoolean("settings.syncing.exp")) {
-                    player.setExp(Integer.parseInt(result));
-                    syncProfile.setExp(Integer.parseInt(result));
+                    player.setExp(Float.parseFloat(result));
+                    syncProfile.setExp(Float.parseFloat(result));
+                    result = null;
+                }
+            } catch (Exception ignored) { }
+            result = String.valueOf(document.getInteger("level"));
+            try {
+                if (result != null && ConfigManager.getBoolean("settings.syncing.exp")) {
+                    player.setLevel(Integer.parseInt(result));
+                    syncProfile.setLevel(Integer.parseInt(result));
                     result = null;
                 }
             } catch (Exception ignored) { }
@@ -183,8 +191,10 @@ public class ManageMongoData {
                 syncProfile.setEnderChest(player.getEnderChest());
             }
             if (ConfigManager.getBoolean("settings.syncing.exp")) {
-                document.append("exp", (int) player.getExp());
-                syncProfile.setExp((int) player.getExp());
+                document.append("exp", player.getExp());
+                syncProfile.setExp(player.getExp());
+                document.append("level", player.getLevel());
+                syncProfile.setLevel(player.getLevel());
             }
             if (ConfigManager.getBoolean("settings.syncing.effects")) {
                 Collection<PotionEffect> effectCollection = player.getActivePotionEffects();
@@ -248,8 +258,10 @@ public class ManageMongoData {
                 syncProfile.setEnderChest(player.getEnderChest());
             }
             if (customSyncSettings.isSyncingExp()) {
-                document.append("exp", (int) player.getExp());
-                syncProfile.setExp((int) player.getExp());
+                document.append("exp", player.getExp());
+                syncProfile.setExp(player.getExp());
+                document.append("level", player.getLevel());
+                syncProfile.setLevel(player.getLevel());
             }
             if (customSyncSettings.isSyncingEffects()) {
                 Collection<PotionEffect> effectCollection = player.getActivePotionEffects();

@@ -19,7 +19,8 @@ public class CachePlayer {
 
     private Inventory inventory;
     private Inventory enderchest;
-    private Integer exp;
+    private Float exp;
+    private Integer level;
     private GameMode gamemode;
     private Integer hunger;
     private Double health;
@@ -31,7 +32,8 @@ public class CachePlayer {
         this.player = player;
         this.inventory = player.getInventory();
         this.enderchest = player.getEnderChest();
-        this.exp = (int) player.getExp();
+        this.exp = player.getExp();
+        this.level = player.getLevel();
         this.gamemode = player.getGameMode();
         this.hunger = player.getFoodLevel();
         this.health = player.getHealth();
@@ -70,16 +72,28 @@ public class CachePlayer {
         return this.enderchest.iterator().equals(enderchest.iterator());
     }
 
-    public void setExp(Integer exp) {
+    public void setExp(Float exp) {
         this.exp = exp;
     }
 
-    public Integer getExp() {
+    public Float getExp() {
         return exp;
     }
 
-    public Boolean compareExp(Integer exp) {
+    public Boolean compareExp(Float exp) {
         return Objects.equals(this.exp, exp);
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public Boolean compareLevel(Integer level) {
+        return Objects.equals(this.level, level);
     }
 
     public void setGamemode(GameMode gamemode) {

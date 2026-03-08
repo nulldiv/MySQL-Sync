@@ -16,7 +16,8 @@ public class SyncProfile {
 
     private PlayerInventory playerInventory;
     private Inventory enderChest;
-    private Integer exp;
+    private Float exp;
+    private Integer level;
     private GameMode gameMode;
     private Integer hunger;
     private Double health;
@@ -36,8 +37,12 @@ public class SyncProfile {
         this.enderChest = enderChest;
     }
 
-    public void setExp(Integer exp) {
+    public void setExp(Float exp) {
         this.exp = exp;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public void setGameMode(GameMode gameMode) {
@@ -72,8 +77,12 @@ public class SyncProfile {
         return enderChest;
     }
 
-    public Integer getExp() {
+    public Float getExp() {
         return exp;
+    }
+
+    public Integer getLevel() {
+        return level;
     }
 
     public GameMode getGameMode() {

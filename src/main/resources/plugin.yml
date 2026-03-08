@@ -1,7 +1,7 @@
 name: MySQL-Sync
 version: ${project.version}
 main: hd.sphinx.sync.Main
-api-version: 1.17
+api-version: 1.21
 authors: [ Sphinx_HD ]
 description: Syncs Player Data between Servers
 folia-supported: true

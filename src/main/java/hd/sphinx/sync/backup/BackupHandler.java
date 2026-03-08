@@ -46,8 +46,12 @@ public class BackupHandler {
                 cachePlayer.setEnderchest(player.getEnderChest());
                 customSyncSettings.setSyncingEnderchest(true);
             }
-            if (exp && !cachePlayer.compareExp(player.getLevel())) {
-                cachePlayer.setExp(player.getLevel());
+            if (exp && !cachePlayer.compareExp(player.getExp())) {
+                cachePlayer.setExp(player.getExp());
+                customSyncSettings.setSyncingExp(true);
+            }
+            if (exp && !cachePlayer.compareLevel(player.getLevel())) {
+                cachePlayer.setLevel(player.getLevel());
                 customSyncSettings.setSyncingExp(true);
             }
             if (gamemode && !cachePlayer.compareGamemode(player.getGameMode())) {

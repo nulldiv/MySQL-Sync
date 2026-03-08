@@ -110,8 +110,16 @@ public class ManageMySQLData {
                 result = resultSet.getString("exp");
                 try {
                     if (result != null && ConfigManager.getBoolean("settings.syncing.exp")) {
-                        player.setExp(Integer.parseInt(result));
-                        syncProfile.setExp(Integer.parseInt(result));
+                        player.setExp(Float.parseFloat(result));
+                        syncProfile.setExp(Float.parseFloat(result));
+                        result = null;
+                    }
+                } catch (Exception ignored) { }
+                result = resultSet.getString("level");
+                try {
+                    if (result != null && ConfigManager.getBoolean("settings.syncing.exp")) {
+                        player.setLevel(Integer.parseInt(result));
+                        syncProfile.setLevel(Integer.parseInt(result));
                         result = null;
                     }
                 } catch (Exception ignored) { }
@@ -187,6 +195,7 @@ public class ManageMySQLData {
             }
             if (ConfigManager.getBoolean("settings.syncing.exp")) {
                 statement = statement + ", p.exp = ?";
+                statement = statement + ", p.level = ?";
             }
             if (ConfigManager.getBoolean("settings.syncing.effects")) {
                 statement = statement + ", p.effects = ?";
@@ -217,7 +226,7 @@ public class ManageMySQLData {
                     preparedStatement.setString(real, String.valueOf(player.getGameMode()));
                     syncProfile.setGameMode(player.getGameMode());
                 } else if (string.contains("health")) {
-                    preparedStatement.setInt(real, (int) player.getHealth());
+                    preparedStatement.setDouble(real, player.getHealth());
                     syncProfile.setHealth(player.getHealth());
                 } else if (string.contains("food")) {
                     preparedStatement.setInt(real, player.getFoodLevel());
@@ -226,8 +235,11 @@ public class ManageMySQLData {
                     preparedStatement.setString(real, ecBase64);
                     syncProfile.setEnderChest(player.getEnderChest());
                 } else if (string.contains("exp")) {
-                    preparedStatement.setInt(real, (int) player.getExp());
-                    syncProfile.setExp((int) player.getExp());
+                    preparedStatement.setFloat(real, player.getExp());
+                    syncProfile.setExp(player.getExp());
+                } else if (string.contains("level")) {
+                    preparedStatement.setInt(real, player.getLevel());
+                    syncProfile.setLevel(player.getLevel());
                 } else if (string.contains("effects")) {
                     Collection<PotionEffect> effectCollection = player.getActivePotionEffects();
                     PotionEffect[] effectArray = new ArrayList<PotionEffect>(effectCollection).toArray(new PotionEffect[0]);
@@ -286,6 +298,7 @@ public class ManageMySQLData {
             }
             if (customSyncSettings.isSyncingExp()) {
                 statement = statement + ", p.exp = ?";
+                statement = statement + ", p.level = ?";
             }
             if (customSyncSettings.isSyncingEffects()) {
                 statement = statement + ", p.effects = ?";
@@ -316,7 +329,7 @@ public class ManageMySQLData {
                     preparedStatement.setString(real, String.valueOf(player.getGameMode()));
                     syncProfile.setGameMode(player.getGameMode());
                 } else if (string.contains("health")) {
-                    preparedStatement.setInt(real, (int) player.getHealth());
+                    preparedStatement.setDouble(real, player.getHealth());
                     syncProfile.setHealth(player.getHealth());
                 } else if (string.contains("food")) {
                     preparedStatement.setInt(real, player.getFoodLevel());
@@ -325,8 +338,11 @@ public class ManageMySQLData {
                     preparedStatement.setString(real, InventoryManager.saveEChest(player));
                     syncProfile.setEnderChest(player.getEnderChest());
                 } else if (string.contains("exp")) {
-                    preparedStatement.setInt(real, (int) player.getExp());
-                    syncProfile.setExp((int) player.getExp());
+                    preparedStatement.setFloat(real, player.getExp());
+                    syncProfile.setExp(player.getExp());
+                } else if (string.contains("level")) {
+                    preparedStatement.setInt(real, player.getLevel());
+                    syncProfile.setLevel(player.getLevel());
                 } else if (string.contains("effects")) {
                     Collection<PotionEffect> effectCollection = player.getActivePotionEffects();
                     PotionEffect[] effectArray = new ArrayList<PotionEffect>(effectCollection).toArray(new PotionEffect[0]);
