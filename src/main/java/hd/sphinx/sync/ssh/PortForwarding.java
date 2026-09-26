@@ -93,7 +93,9 @@ public class PortForwarding {
         try{
             session = jsch.getSession(username, sshHost, sshPort);
             session.setConfig(config);
-            session.setPassword(password);
+            if(authType==AuthType.PASSWORD){
+                session.setPassword(password);
+            }
             session.connect();
             return session;
         }catch(JSchException exception){
