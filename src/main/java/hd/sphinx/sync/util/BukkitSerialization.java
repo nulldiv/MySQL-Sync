@@ -6,7 +6,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+import java.util.Base64;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -39,7 +39,7 @@ public class BukkitSerialization {
             }
 
             dataOutput.close();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
+            return Base64.getMimeEncoder().encodeToString(outputStream.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException("Unable to save item stacks.", e);
         }
@@ -55,7 +55,7 @@ public class BukkitSerialization {
     public static ItemStack[] itemStackArrayFromBase64(String data) throws IOException {
         try {
             if (data == null) return null;
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
             ItemStack[] items = new ItemStack[dataInput.readInt()];
 
@@ -100,7 +100,7 @@ public class BukkitSerialization {
             }
 
             dataOutput.close();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
+            return Base64.getMimeEncoder().encodeToString(outputStream.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException("Unable to save potion effects.", e);
         }
@@ -116,7 +116,7 @@ public class BukkitSerialization {
     public static PotionEffect[] potionEffectArrayFromBase64(String data) throws IOException {
         try {
             if (data == null) return null;
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
             PotionEffect[] potions = new PotionEffect[dataInput.readInt()];
 
@@ -163,7 +163,7 @@ public class BukkitSerialization {
             }
 
             dataOutput.close();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
+            return Base64.getMimeEncoder().encodeToString(outputStream.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException("Unable to save advancements.", e);
         }
@@ -179,7 +179,7 @@ public class BukkitSerialization {
     public static HashMap<Advancement, Boolean> advancementBooleanHashMapFromBase64(String data) throws IOException {
         try {
             if (data == null) return null;
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
             HashMap<Advancement, Boolean> advancements = new HashMap<Advancement, Boolean>();
             int InputInt = dataInput.readInt();
@@ -218,7 +218,7 @@ public class BukkitSerialization {
             }
 
             dataOutput.close();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
+            return Base64.getMimeEncoder().encodeToString(outputStream.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException("Unable to save statistics.", e);
         }
@@ -234,7 +234,7 @@ public class BukkitSerialization {
     public static HashMap<String, Integer> statisticsIntegerHashMapFromBase64(String data) throws IOException {
         try {
             if (data == null) return null;
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
             HashMap<String, Integer> statistics = new HashMap<String, Integer>();
             int InputInt = dataInput.readInt();
