@@ -19,6 +19,8 @@ public class PortForwarding {
     private static int dbPort = Integer.parseInt(ConfigManager.getString("ssh.dbport"));
     private static String sshHost = ConfigManager.getString("ssh.sshhost");
     private static int sshPort = Integer.parseInt(ConfigManager.getString("ssh.sshport"));
+    private static int sshKeepAliveInterval = Integer.parseInt(ConfigManager.getString("ssh.keepalive.interval"));
+    private static int sshKeepAliveMaxCount = Integer.parseInt(ConfigManager.getString("ssh.keepalive.maxcount"));
     private static String username = ConfigManager.getString("ssh.username");
     private static String password = ConfigManager.getString("ssh.password");
     private static String identity = ConfigManager.getString("ssh.identity");
@@ -60,12 +62,21 @@ public class PortForwarding {
                 throw new InvalidConfigurationException("auth type is invalid. only 'password' or 'publickey' is allowed.");
             }
 
+            if(username==null||username.isEmpty()){
+                throw new InvalidConfigurationException("username is needed to use ssh connection.");
+            }
+
             if(username.length()>31){
                 throw new InvalidConfigurationException("username is too long. please specify within 31 characters.");
             }
 
-            if(authType==AuthType.PASSWORD&&password.length()>128){
-                throw new InvalidConfigurationException("password is too long. please specify within 128 characters.");
+            if(authType==AuthType.PASSWORD){
+                if(password==null){
+                    throw new InvalidConfigurationException("auth type is password, but password is null!");
+                }
+                if(password.length()>128){
+                    throw new InvalidConfigurationException("password is too long. please specify within 128 characters.");
+                }
             }
 
         }catch(InvalidConfigurationException exception){
@@ -95,6 +106,10 @@ public class PortForwarding {
             session.setConfig(config);
             if(authType==AuthType.PASSWORD){
                 session.setPassword(password);
+            }
+            if(sshKeepAliveMaxCount>0&&sshKeepAliveInterval>0){
+                session.setServerAliveCountMax(sshKeepAliveMaxCount);
+                session.setServerAliveInterval(sshKeepAliveInterval*1000);
             }
             session.connect();
             return session;

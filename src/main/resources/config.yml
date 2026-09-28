@@ -90,6 +90,9 @@ ssh:
   username: "username" # always required
   password: "password" # always required (if identity password is blank, please set this to "")
   identity: "/home/user/.ssh/id_rsa" # required if auth is "publickey"
+  keepalive:
+   interval: 60 # keepalive interval in seconds (set 0 to disable)
+   maxcount: 1 # max count of keepalive tries (set 0 to disable)
 
 
 #
